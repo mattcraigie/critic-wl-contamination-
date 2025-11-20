@@ -81,7 +81,12 @@ def estimate_conditional_mi(critic: nn.Module, t_net: nn.Module, loader: DataLoa
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Train conditional dependence critic on toy data.")
-    parser.add_argument("--data", type=str, default="data/toy_data.npz", help="Path to NPZ produced by generate_toy_data")
+    parser.add_argument(
+        "--data",
+        type=str,
+        default="../data/toy_data.npz",
+        help="Path to NPZ produced by generate_toy_data",
+    )
     parser.add_argument("--epochs", type=int, default=10, help="Training epochs")
     parser.add_argument("--batch-size", type=int, default=256, help="Batch size")
     parser.add_argument("--loss", type=str, default="info_nce", choices=["dv", "info_nce", "nwj"], help="Loss objective")

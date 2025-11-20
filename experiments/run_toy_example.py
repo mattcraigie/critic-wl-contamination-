@@ -61,7 +61,7 @@ def train_models(path: str, epochs: int = 5, batch_size: int = 256, loss_name: s
 
 
 def main() -> None:
-    dataset_path = os.path.join("data", "toy_data.npz")
+    dataset_path = os.path.join("..", "data", "toy_data.npz")
     ensure_data(dataset_path)
     report_global_dependence(dataset_path)
     train_models(dataset_path)
