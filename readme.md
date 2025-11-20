@@ -85,30 +85,24 @@ This method is:
 We generate synthetic data where:
 
 - The **global** joint distribution \(P(X,Y)\) shows **no visible correlation**,
-- But conditioning on a contextual variable \(Z\) reveals **strong hidden dependence**.
+- But conditioning on a contextual variable \(Z\) reveals **hidden dependence** introduced by a collider.
 
 ### Generative Process
 
 For each sample:
 
-Z ~ Uniform(-1, 1) # contextual variable (e.g., galaxy size or S/N)
-X ~ Normal(0, 1) # candidate systematic (e.g., PSF residual)
-Y_clean ~ Normal(0, 0.1) # clean shear (Gaussian, no true dependence)
-
-
-Introduce contamination only in certain contexts:
-
-Y = Y_clean + 0.6 * X * sigmoid(5 * Z)
+X ~ Normal(0, 1)        # candidate systematic (e.g., PSF residual)
+Y ~ Normal(0, 1)        # clean shear (independent of X)
+Z = X + Y + Normal(0, 0.2)  # collider-like contextual variable
 
 
 Interpretation:
 
-- When `Z < 0` → contamination suppressed → X and Y ~ independent  
-- When `Z > 0` → contamination activated → strong X→Y dependence  
-- Globally, contamination averages out → P(X,Y) looks almost independent  
-- But conditioned on T=Z, dependence is strong  
+- Marginally, `X` and `Y` are independent standard normals
+- Conditioning on `Z` induces correlation because both `X` and `Y` influence `Z`
+- Globally, P(X,Y) looks independent; given `Z`, dependence appears
 
-This gives a perfect demonstration target for the critic.
+This collider setup creates a clear contrast between global independence and conditional dependence.
 
 ---
 
