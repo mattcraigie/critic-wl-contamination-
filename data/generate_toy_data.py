@@ -1,5 +1,5 @@
 """
-Generate toy data exhibiting hidden conditional dependence.
+Generate toy data exhibiting conditional dependence via a collider variable.
 """
 from __future__ import annotations
 
@@ -12,11 +12,9 @@ import numpy as np
 
 def simulate_hidden_contamination(n_samples: int, seed: int = 42) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     rng = np.random.default_rng(seed)
-    z = rng.uniform(-1.0, 1.0, size=(n_samples, 1))
     x = rng.normal(0.0, 1.0, size=(n_samples, 1))
-    y_clean = rng.normal(0.0, 0.1, size=(n_samples, 1))
-    contamination = 0.6 * x * (1 / (1 + np.exp(-5 * z)))
-    y = y_clean + contamination
+    y = rng.normal(0.0, 1.0, size=(n_samples, 1))
+    z = x + y + rng.normal(0.0, 0.2, size=(n_samples, 1))
     return x.astype(np.float32), y.astype(np.float32), z.astype(np.float32)
 
 
