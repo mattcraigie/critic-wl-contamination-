@@ -3,12 +3,17 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
 from typing import Tuple
 
 import numpy as np
 import torch
 from torch import nn, optim
 from torch.utils.data import DataLoader, Dataset
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.append(str(REPO_ROOT))
 
 from models.critic import build_critic
 from models.t_network import build_t_network

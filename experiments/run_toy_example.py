@@ -3,12 +3,17 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
+import sys
 
 import numpy as np
 import torch
 from scipy.stats import pearsonr
 from torch import optim
 from torch.utils.data import DataLoader
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.append(str(REPO_ROOT))
 
 from data.generate_toy_data import simulate_hidden_contamination
 from training.train_conditional import ToyDataset, estimate_conditional_mi, train_epoch
